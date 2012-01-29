@@ -5,6 +5,6 @@ run nosetests continuously
 
 Usage
 -----
-  
-  ./bin/nose_continuous.py --tests=./tests
+
+    ./bin/nose_continuous.py --tests=./test
 
