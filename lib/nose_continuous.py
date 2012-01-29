@@ -2,11 +2,6 @@ import subprocess
 import time
 from watchdog.events        import PatternMatchingEventHandler
 from watchdog.observers     import Observer
-from watchdog.observers.api import ObservedWatch, \
-                                   BaseObserver, \
-                                   EventEmitter, \
-                                   EventDispatcher, \
-                                   EventQueue
 
 argv = []
 
@@ -22,7 +17,7 @@ class MyHandler(PatternMatchingEventHandler):
     def __init__(self, patterns=None, ignore_patterns=None,
                          ignore_directories=False, case_sensitive=False):
         self.is_running = False
-        super(MyHandler,self).__init__(self, patterns, ignore_patterns, ignore_directories, case_sensitive)
+        super(MyHandler,self).__init__(patterns, ignore_patterns, ignore_directories, case_sensitive)
         
     def on_any_event(self, event):
         if self.is_running == True:
@@ -33,10 +28,6 @@ class MyHandler(PatternMatchingEventHandler):
         time.sleep(1)
         self.is_running = False
 
-class MyEmitter(EventEmitter):
-   def queue_event(self, event):
-        super(MyEmitter,self).queue_event(event)
-
 class NoseContinuous(object):
 
     def __init__(self, options, patterns=['*.py'], dirs=['test','lib']):
@@ -46,15 +37,8 @@ class NoseContinuous(object):
         if len(options)>0:
             self.argv = options
 
-        self.event_queue = EventQueue()
-        self.watch = ObservedWatch('.', True)
-        self.emitter = MyEmitter(self.event_queue, self.watch, timeout=1)
-        self.observer = BaseObserver(self.emitter)
-
     def run(self):
         event_handler = MyHandler(patterns=self.target_patterns)
-
-
         observer = Observer()
         for dir in self.target_dirs:
             observer.schedule(event_handler, path=dir, recursive=True)
