@@ -26,9 +26,9 @@ class UniqueTimeHandler(PatternMatchingEventHandler):
         subprocess.call(cmd)
         print '-' * 10
 
-class NoseContinuous(object):
+class ContinuousNose(object):
 
-    def __init__(self, options, patterns=['*.py'], dirs=['test','lib']):
+    def __init__(self, options, patterns=['*.py'], dirs=[]):
         self.target_patterns = patterns
         self.target_dirs = dirs
         self.argv = []

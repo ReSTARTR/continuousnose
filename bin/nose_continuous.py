@@ -1,10 +1,8 @@
 #!/usr/bin/env python
-
 import sys
-sys.path.insert(0, './lib')
-
-import nose_continuous
+sys.path.insert(0, './src')
+import continuousnose
 
 if __name__ == "__main__":
-    runner = nose_continuous.NoseContinuous(sys.argv[1:])
+    runner = continuousnose.ContinuousNose(sys.argv[1:],dirs=['test','src'])
     runner.run()
